@@ -22,6 +22,7 @@ void score_control_set_new_game_score(uint8_t score_home, uint8_t score_away)
 {
   score_control_status.score_home = score_home;
   score_control_status.score_away = score_away;
+  score_control_print();
 }
 
 void score_control_increment_score(score_control_team_te team_e)
