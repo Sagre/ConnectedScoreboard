@@ -17,7 +17,7 @@
 #include "lorawan.h"
 #include "Arduino.h"
 
-
+bool initial_score_send = false;
 void print_wakeup_reason(){
   esp_sleep_wakeup_cause_t wakeup_reason;
 
@@ -61,6 +61,11 @@ void setup() {
 void loop()
 {
   lora_com_task();
+  if (lorawan_IsConnected() && !initial_score_send)
+  {
+    score_control_set_new_game_score(0,0);
+    initial_score_send = true;
+  }
   score_control_update_angles();
   score_control_update_motor_positions();
   button_control_determine_button_command();
