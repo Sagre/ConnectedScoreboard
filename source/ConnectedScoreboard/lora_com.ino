@@ -22,7 +22,7 @@ uint32_t app_tx_duty_cycle = 5000;
 bool lorawan_adr_b = true;
 
 /* Indicates if the node is sending confirmed or unconfirmed messages */
-bool is_tx_confirmed_b = true;
+bool is_tx_confirmed_b = false;
 
 /* Application port */
 uint8_t app_port = 2;
@@ -82,7 +82,7 @@ static void lora_com_send_message( uint8_t msg_frame[], uint8_t msg_size )
 
 void downLinkAckHandle(void)
 {
-  Serial.println("lora_com: Ack received");
+  //Serial.println("lora_com: Ack received");
   ack_received_b = true;
 }
 
@@ -137,7 +137,7 @@ static void lora_com_print_state_change(void)
 
 static void lora_com_task(void)
 {
-  lora_com_print_state_change();
+  //lora_com_print_state_change();
 
   switch( device_state )
   {

@@ -101,6 +101,7 @@ extern "C" void lorawan_lwan_dev_params_update( void );
 extern "C" void dev_time_updated( void );
 extern "C" void lorawan_printf(const char *format, ...);
 extern "C" void lorawan_OnTxNextPacketTimerEvent( void );
+extern "C" bool lorawan_IsConnected(void);
 
 extern LorawanClass Lorawan;
  

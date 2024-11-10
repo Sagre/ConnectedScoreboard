@@ -27,7 +27,7 @@ void ulti_protocol_send_new_score(uint8_t score_away, uint8_t score_home)
   lora_com_send_message(msg_frame, NEW_SCORE_ONFIELD_LENGTH);
 }
 
-void ulti_protocol_print_msg(uint8_t msg_frame[], msg_size)
+void ulti_protocol_print_msg(uint8_t msg_frame[], uint8_t msg_size)
 {
   for (uint8_t id = 0; id < msg_size; id++)
   {
@@ -55,7 +55,7 @@ void ulti_protocol_decode_message(uint8_t msg_frame[], uint8_t msg_size)
   {
     case NEW_ONLINE_SCORE_MSG_ID:
     {
-      if (ulti_protocol_validate_msg(msg_frame, msg_size, GAME_START_MSG_ID))
+      if (ulti_protocol_validate_msg(msg_frame, msg_size, NEW_ONLINE_SCORE_MSG_ID))
       {
         Serial.println("ulti_protocol: New Score");
         score_control_set_new_game_score(msg_frame[1], msg_frame[2]);
@@ -78,7 +78,7 @@ void ulti_protocol_decode_message(uint8_t msg_frame[], uint8_t msg_size)
     }
     case GAME_END_MSG_ID:
     {
-      if (ulti_protocol_validate_msg(msg_frame, msg_size, GAME_START_MSG_ID))
+      if (ulti_protocol_validate_msg(msg_frame, msg_size, GAME_END_MSG_ID))
       {
         Serial.println("ulti_protocol: Game End");
       } else

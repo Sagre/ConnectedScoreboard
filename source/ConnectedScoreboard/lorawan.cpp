@@ -90,7 +90,7 @@ bool lorawan_send_frame( void )
 		}
 		else
 		{
-			printf("lorawan: confirmed uplink sending ...\r\n");
+			//printf("lorawan: confirmed uplink sending ...\r\n");
 			mcpsReq.Type = MCPS_CONFIRMED;
 			mcpsReq.Req.Confirmed.fPort = app_port;
 			mcpsReq.Req.Confirmed.fBuffer = app_data;
@@ -105,6 +105,24 @@ bool lorawan_send_frame( void )
 		return false;
 	}
 	return true;
+}
+
+bool lorawan_IsConnected(void)
+{
+  MibRequestConfirm_t mibReq;
+  LoRaMacStatus_t status;
+
+  mibReq.Type = MIB_NETWORK_JOINED;
+  status = LoRaMacMibGetRequestConfirm( &mibReq );
+
+	if( status == LORAMAC_STATUS_OK )
+	{
+		if( mibReq.Param.IsNetworkJoined == true )
+		{
+      return true;
+    }
+  }
+  return false;
 }
 
 /*!
@@ -205,12 +223,12 @@ static void McpsIndication( McpsIndication_t *mcpsIndication )
 
 
 	LORAWANLOG;
-	printf( "lorawan: received ");
+	//printf( "lorawan: received ");
 	switch( mcpsIndication->McpsIndication )
 	{
 		case MCPS_UNCONFIRMED:
 		{
-			printf( "unconfirmed ");
+			//printf( "unconfirmed ");
 			break;
 		}
 		case MCPS_CONFIRMED:
@@ -232,7 +250,7 @@ static void McpsIndication( McpsIndication_t *mcpsIndication )
 		default:
 			break;
 	}
-	printf( "downlink: rssi = %d, snr = %d, datarate = %d\r\n", mcpsIndication->Rssi, (int)mcpsIndication->Snr,(int)mcpsIndication->RxDoneDatarate);
+	//printf( "downlink: rssi = %d, snr = %d, datarate = %d\r\n", mcpsIndication->Rssi, (int)mcpsIndication->Snr,(int)mcpsIndication->RxDoneDatarate);
 
 	if(mcpsIndication->AckReceived)
 	{
